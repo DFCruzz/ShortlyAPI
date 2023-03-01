@@ -1,0 +1,23 @@
+CREATE TABLE urls (
+    id INTEGER NOT NULL,
+    url TEXT NOT NULL,
+    "shortUrl" TEXT NOT NULL,
+    "visitCount" INTEGER NOT NULL DEFAULT 0,
+    "userId" INTEGER NOT NULL REFERENCES users(id),
+    "createAt" TIMESTAMP WITHOUT TIME ZONE DEFAULT now() NOT NULL,
+    "updateAt" TIMESTAMP WITHOUT TIME ZONE DEFAULT NULL
+);
+
+
+--
+-- Name: users; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE users (
+    id INTEGER NOT NULL,
+    name VARCHAR(80) NOT NULL,
+    email VARCHAR(320) NOT NULL,
+    password TEXT NOT NULL,
+    "createAt" TIMESTAMP WITHOUT TIME ZONE DEFAULT now() NOT NULL,
+    "updateAt" TIMESTAMP WITHOUT TIME ZONE DEFAULT NULL
+);
