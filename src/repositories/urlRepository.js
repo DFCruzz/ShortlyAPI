@@ -10,6 +10,14 @@ class UrlRepository {
 
         return request
     }
+
+    async checkUrl (id) {
+        const request = database.query(
+            `SELECT (id, url, "shortUrl") FROM urls WHERE  id = $1;` [id]
+        )
+
+        return request.rows[0]
+    }
 }
 
 export default UrlRepository
