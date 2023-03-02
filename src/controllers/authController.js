@@ -1,6 +1,6 @@
-import AuthRepository from "../repositories/authRepository.js"
-import bcrypt from "bcrypt"
-import {v4 as uuid } from "uuid"
+import AuthRepository from "../repositories/authRepository.js";
+import bcrypt from "bcrypt";
+import {v4 as uuid } from "uuid";
 
 const authRepository = new AuthRepository()
 
