@@ -21,6 +21,38 @@ SET default_tablespace = '';
 SET default_table_access_method = heap;
 
 --
+-- Name: auth; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.auth (
+    id integer NOT NULL,
+    token text NOT NULL,
+    "userId" integer NOT NULL,
+    "createAt" timestamp without time zone DEFAULT now() NOT NULL
+);
+
+
+--
+-- Name: auth_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.auth_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: auth_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.auth_id_seq OWNED BY public.auth.id;
+
+
+--
 -- Name: urls; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -90,6 +122,13 @@ ALTER SEQUENCE public.users_id_seq OWNED BY public.users.id;
 
 
 --
+-- Name: auth id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.auth ALTER COLUMN id SET DEFAULT nextval('public.auth_id_seq'::regclass);
+
+
+--
 -- Name: urls id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -104,6 +143,12 @@ ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_
 
 
 --
+-- Data for Name: auth; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+
+
+--
 -- Data for Name: urls; Type: TABLE DATA; Schema: public; Owner: -
 --
 
@@ -113,6 +158,14 @@ ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_
 -- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: -
 --
 
+INSERT INTO public.users VALUES (1, 'Diego', 'diego@driven.com.br', '$2b$08$x69mPnqqR1QRUtXX8TUZbOhjUm.FiJhLKWmjGn1WR20uIkX.UrYLu', '2023-03-01 17:53:43.472005', NULL);
+
+
+--
+-- Name: auth_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.auth_id_seq', 1, false);
 
 
 --
@@ -126,7 +179,15 @@ SELECT pg_catalog.setval('public.urls_id_seq', 1, false);
 -- Name: users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.users_id_seq', 1, false);
+SELECT pg_catalog.setval('public.users_id_seq', 1, true);
+
+
+--
+-- Name: auth auth_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.auth
+    ADD CONSTRAINT auth_pkey PRIMARY KEY (id);
 
 
 --
@@ -143,6 +204,14 @@ ALTER TABLE ONLY public.urls
 
 ALTER TABLE ONLY public.users
     ADD CONSTRAINT users_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth auth_userId_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.auth
+    ADD CONSTRAINT "auth_userId_fkey" FOREIGN KEY ("userId") REFERENCES public.users(id);
 
 
 --

@@ -1,6 +1,5 @@
 import database from "../database/database.connection.js"
 import bcrypt from "bcrypt"
-
 class AuthRepository {
 
     async checkEmail(email) {
@@ -9,7 +8,7 @@ class AuthRepository {
             `SELECT * FROM users WHERE email = $1`, [email]
         )
 
-        return request
+        return request.rows[0]
     }
 
     async signUp(name, email, password) {
@@ -18,6 +17,15 @@ class AuthRepository {
 
         const request = await database.query(
             `INSERT INTO users (name, email, password) VALUES ($1, $2, $3)`, [name, email, encryptedPassword]
+        )
+
+        return request
+    }
+
+    async signIn(token, userId) {
+
+        const request = await database.query(
+            `INSERT INTO auth (token, "userId") VALUES ($1, $2)`, [token, userId]
         )
 
         return request
