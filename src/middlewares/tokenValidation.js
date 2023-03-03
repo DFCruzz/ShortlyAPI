@@ -1,5 +1,7 @@
 import AuthRepository from "../repositories/authRepository.js";
 
+const authRepository = new AuthRepository()
+
 async function tokenValidation (req, res, next) {
     const {authorization} = req.headers
     const token = authorization?.replace("Bearer ", "")
@@ -10,7 +12,7 @@ async function tokenValidation (req, res, next) {
 
     try {
 
-        const userSession = await AuthRepository.checkSession(token)
+        const userSession = await authRepository.checkSession(token)
         
         if (!userSession) {
             return res.sendStatus(401)

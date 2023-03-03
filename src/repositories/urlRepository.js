@@ -4,7 +4,7 @@ class UrlRepository {
 
     async urlShorten (url, shortUrl, userId) {
 
-        const request = database.query(
+        const request = await database.query(
             `INSERT INTO urls (url, "shortUrl", "userId") VALUES ($1, $2, $3);`, [url, shortUrl, userId]
         )
 
@@ -13,23 +13,24 @@ class UrlRepository {
 
     async partialCheckUrl (id) {
         const request = database.query(
-            `SELECT id, url, "shortUrl" FROM urls WHERE  id = $1;` [id]
+            `SELECT id, url, "shortUrl" FROM urls WHERE  id = $1;`, [id]
         )
 
-        return request.rows[0]
+        return request
     }
 
     async partialCheckShortUrl(url) {
-        const request = database.query(
+
+        const request = await database.query(
             `SELECT id, "shortUrl" FROM urls WHERE url = $1;`, [url]
         )
 
-        return request.rows[0]
+        return request
     }
 
     async checkUrl (id) {
         const request = database.query(
-            `SELECT * FROM urls WHERE id = $1;` [id]
+            `SELECT * FROM urls WHERE id = $1;`, [id]
         )
 
         return request.rows[0]
@@ -37,7 +38,7 @@ class UrlRepository {
 
     async checkShortUrl (shortUrl) {
         const request = database.query(
-            `SELECT * FROM urls WHERE "shortUrl" = $1;` [shortUrl]
+            `SELECT * FROM urls WHERE "shortUrl" = $1;`, [shortUrl]
         )
 
         return request.rows[0]
@@ -45,7 +46,7 @@ class UrlRepository {
 
     async updateCount (visits, shortUrl) {
         const request = database.query(
-            `UPDATE urls SET "visitCount = $1 WHERE "shortUrl" = $2;` [visits, shortUrl]
+            `UPDATE urls SET "visitCount = $1 WHERE "shortUrl" = $2;`, [visits, shortUrl]
         )
 
         return request
