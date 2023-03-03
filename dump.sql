@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 12.13 (Ubuntu 12.13-0ubuntu0.20.04.1)
--- Dumped by pg_dump version 12.13 (Ubuntu 12.13-0ubuntu0.20.04.1)
+-- Dumped from database version 12.14 (Ubuntu 12.14-0ubuntu0.20.04.1)
+-- Dumped by pg_dump version 12.14 (Ubuntu 12.14-0ubuntu0.20.04.1)
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -28,7 +28,7 @@ CREATE TABLE public.auth (
     id integer NOT NULL,
     token text NOT NULL,
     "userId" integer NOT NULL,
-    "createAt" timestamp without time zone DEFAULT now() NOT NULL
+    "createdAt" timestamp without time zone DEFAULT now() NOT NULL
 );
 
 
@@ -62,8 +62,8 @@ CREATE TABLE public.urls (
     "shortUrl" text NOT NULL,
     "visitCount" integer DEFAULT 0 NOT NULL,
     "userId" integer NOT NULL,
-    "createAt" timestamp without time zone DEFAULT now() NOT NULL,
-    "updateAt" timestamp without time zone
+    "createdAt" timestamp without time zone DEFAULT now() NOT NULL,
+    "updatedAt" timestamp without time zone
 );
 
 
@@ -96,8 +96,8 @@ CREATE TABLE public.users (
     name character varying(80) NOT NULL,
     email character varying(320) NOT NULL,
     password text NOT NULL,
-    "createAt" timestamp without time zone DEFAULT now() NOT NULL,
-    "updateAt" timestamp without time zone
+    "createdAt" timestamp without time zone DEFAULT now() NOT NULL,
+    "updatedAt" timestamp without time zone
 );
 
 
@@ -146,6 +146,7 @@ ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_
 -- Data for Name: auth; Type: TABLE DATA; Schema: public; Owner: -
 --
 
+INSERT INTO public.auth VALUES (1, 'f5578382-da79-401f-b13b-151560eb67fc', 15, '2023-03-02 14:32:33.708882');
 
 
 --
@@ -158,14 +159,14 @@ ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_
 -- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-INSERT INTO public.users VALUES (1, 'Diego', 'diego@driven.com.br', '$2b$08$x69mPnqqR1QRUtXX8TUZbOhjUm.FiJhLKWmjGn1WR20uIkX.UrYLu', '2023-03-01 17:53:43.472005', NULL);
+INSERT INTO public.users VALUES (15, 'Diego', 'diegaso@driven.com.br', '$2b$08$rKAJaOxNOxUeHLQH40E5ueixwxzpFPZWtL1X6BVCqYt6mD5pw48QW', '2023-03-02 14:15:04.344065', NULL);
 
 
 --
 -- Name: auth_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.auth_id_seq', 1, false);
+SELECT pg_catalog.setval('public.auth_id_seq', 1, true);
 
 
 --
@@ -179,7 +180,7 @@ SELECT pg_catalog.setval('public.urls_id_seq', 1, false);
 -- Name: users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.users_id_seq', 1, true);
+SELECT pg_catalog.setval('public.users_id_seq', 15, true);
 
 
 --
