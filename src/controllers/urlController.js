@@ -37,3 +37,26 @@ export async function checkUrlById(req, res) {
         res.status(500).send(error.message)
     }
 }
+
+export async function urlRedirect(req, res) {
+    const { shortUrl } = req.params
+
+    try {
+        
+        const isValid = await urlRepository.checkShortUrl(shortUrl)
+
+        if (!isValid) {
+            return res.sendStatus(404)
+        }
+
+        const normalUrl = isValid.url
+        const visits = isValid.visitCount + 1
+
+        await urlRepository.updateCount(visits, shortUrl)
+
+        res.redirect(normalUrl)
+
+    } catch (error) {
+        res.status(500).send(error.message)
+    }
+}

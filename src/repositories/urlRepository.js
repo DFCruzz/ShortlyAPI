@@ -18,6 +18,22 @@ class UrlRepository {
 
         return request.rows[0]
     }
+
+    async checkShortUrl (shortUrl) {
+        const request = database.query(
+            `SELECT * FROM urls WHERE "shortUrl = $1";` [shortUrl]
+        )
+
+        return request.rows[0]
+    }
+
+    async updateCount (visits, shortUrl) {
+        const request = database.query(
+            `UPDATE urls SET "visitCount = $1 WHERE "shortUrl = $2";` [visits, shortUrl]
+        )
+
+        return request
+    }
 }
 
 export default UrlRepository
