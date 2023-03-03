@@ -11,9 +11,17 @@ class UrlRepository {
         return request
     }
 
-    async checkUrl (id) {
+    async partialCheckUrl (id) {
         const request = database.query(
             `SELECT (id, url, "shortUrl") FROM urls WHERE  id = $1;` [id]
+        )
+
+        return request.rows[0]
+    }
+
+    async checkUrl (id) {
+        const request = database.query(
+            `SELECT * FROM urls WHERE  id = $1;` [id]
         )
 
         return request.rows[0]
@@ -30,6 +38,14 @@ class UrlRepository {
     async updateCount (visits, shortUrl) {
         const request = database.query(
             `UPDATE urls SET "visitCount = $1 WHERE "shortUrl = $2";` [visits, shortUrl]
+        )
+
+        return request
+    }
+
+    async deleteUrl (id) {
+        const request = database.query(
+            `DELETE FROM urls WHERE id = $1;`, [id]
         )
 
         return request
