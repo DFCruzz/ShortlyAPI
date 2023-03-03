@@ -15,3 +15,16 @@ export async function getUrls (req, res) {
         res.status(500).send(error.message)
     }
 }
+
+export async function getRankings(req, res) {
+
+    try {
+        
+        const rankings = await userRepository.checkRanking()
+
+        res.status(200).send(rankings.rows)
+
+    } catch (error) {
+        res.status(500).send(error.message)
+    }
+}
