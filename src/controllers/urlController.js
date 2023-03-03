@@ -12,7 +12,9 @@ export async function shorten(req, res) {
 
         await urlRepository.urlShorten(url, shortUrl, userId)
 
-        return res.status(201).send({ id, shortUrl })
+        const result = await urlRepository.checkShortUrl(url)
+
+        return res.status(201).send(result)
 
     } catch (error) {
         res.status(500).send(error.message)
