@@ -13,7 +13,7 @@ class UrlRepository {
 
     async partialCheckUrl (id) {
         const request = database.query(
-            `SELECT (id, url, "shortUrl") FROM urls WHERE  id = $1;` [id]
+            `SELECT id, url, "shortUrl" FROM urls WHERE  id = $1;` [id]
         )
 
         return request.rows[0]
@@ -21,7 +21,7 @@ class UrlRepository {
 
     async checkShortUrl(url) {
         const request = database.query(
-            `SELECT (id, "shortUrl") FROM urls WHERE url = $1;`, [url]
+            `SELECT id, "shortUrl" FROM urls WHERE url = $1;`, [url]
         )
 
         return request.rows[0]
