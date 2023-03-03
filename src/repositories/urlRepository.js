@@ -19,7 +19,7 @@ class UrlRepository {
         return request.rows[0]
     }
 
-    async checkShortUrl(url) {
+    async partialCheckShortUrl(url) {
         const request = database.query(
             `SELECT id, "shortUrl" FROM urls WHERE url = $1;`, [url]
         )
@@ -29,7 +29,7 @@ class UrlRepository {
 
     async checkUrl (id) {
         const request = database.query(
-            `SELECT * FROM urls WHERE  id = $1;` [id]
+            `SELECT * FROM urls WHERE id = $1;` [id]
         )
 
         return request.rows[0]
@@ -37,7 +37,7 @@ class UrlRepository {
 
     async checkShortUrl (shortUrl) {
         const request = database.query(
-            `SELECT * FROM urls WHERE "shortUrl = $1";` [shortUrl]
+            `SELECT * FROM urls WHERE "shortUrl" = $1;` [shortUrl]
         )
 
         return request.rows[0]
@@ -45,7 +45,7 @@ class UrlRepository {
 
     async updateCount (visits, shortUrl) {
         const request = database.query(
-            `UPDATE urls SET "visitCount = $1 WHERE "shortUrl = $2";` [visits, shortUrl]
+            `UPDATE urls SET "visitCount = $1 WHERE "shortUrl" = $2;` [visits, shortUrl]
         )
 
         return request
