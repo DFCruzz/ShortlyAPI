@@ -28,7 +28,7 @@ export async function checkUrlById(req, res) {
 
         const isValid = await urlRepository.partialCheckUrl(id)
 
-        if (!isValid) {
+        if (!isValid.rows[0]) {
             return res.sendStatus(404)
         }
 
@@ -71,11 +71,11 @@ export async function urlDelete(req, res) {
         
         const isValid = await urlRepository.checkUrl(id)
 
-        if (!isValid) {
+        if (!isValid.rows[0]) {
             return res.sendStatus(404)
         }
 
-        const urlUserId = isValid.userId
+        const urlUserId = isValid.rows[0].userId
 
         if(urlUserId !== userId) {
             return res.sendStatus(401)

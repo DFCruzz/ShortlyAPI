@@ -33,7 +33,7 @@ class UrlRepository {
             `SELECT * FROM urls WHERE id = $1;`, [id]
         )
 
-        return request.rows[0]
+        return request
     }
 
     async checkShortUrl (shortUrl) {
