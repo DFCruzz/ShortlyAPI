@@ -32,7 +32,7 @@ export async function checkUrlById(req, res) {
             return res.sendStatus(404)
         }
 
-        return res.status(200).send(isValid)
+        return res.status(200).send(isValid.rows[0])
     
         
     } catch (error) {

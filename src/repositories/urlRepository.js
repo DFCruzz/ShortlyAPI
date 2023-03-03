@@ -37,7 +37,7 @@ class UrlRepository {
     }
 
     async checkShortUrl (shortUrl) {
-        const request = database.query(
+        const request = await database.query(
             `SELECT * FROM urls WHERE "shortUrl" = $1;`, [shortUrl]
         )
 
@@ -46,7 +46,7 @@ class UrlRepository {
 
     async updateCount (visits, shortUrl) {
         const request = database.query(
-            `UPDATE urls SET "visitCount = $1 WHERE "shortUrl" = $2;`, [visits, shortUrl]
+            `UPDATE urls SET "visitCount" = $1 WHERE "shortUrl" = $2;`, [visits, shortUrl]
         )
 
         return request
